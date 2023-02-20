@@ -27,8 +27,26 @@ export class ProductsService {
     return this.productsModel.findById(id)
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    const { name, price, stock, thumbnail } = updateProductDto
+    const product = await this.productsModel.findById(id)
+    if (!product) {
+      throw new Error(`Product with id ${id} not found`)
+    } 
+    if (name) {
+      product.name = name
+    }
+    if (price) {
+      product.price = price
+    }
+    if (stock) {
+      product.stock = stock
+    }
+    if (thumbnail) {
+      product.thumbnail = thumbnail
+    }
+    await product.save()
+    return product
   }
 
   async remove(id: string) {

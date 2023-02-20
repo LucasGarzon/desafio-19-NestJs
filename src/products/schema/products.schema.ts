@@ -11,7 +11,7 @@ export class Products {
   @Prop({ required: true })
   price: number;
 
-  @Prop({ required: true })
+  @Prop({ required: true , min: 0})
   stock: number;
 
   @Prop({
