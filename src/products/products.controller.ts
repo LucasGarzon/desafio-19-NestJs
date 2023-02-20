@@ -41,7 +41,17 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const product = await this.productsService.findOne(id)
+    if (product) {
+      const result = await this.productsService.remove(id);
+      if (result.deletedCount > 0) {
+        return { message : 'Product deleted successfully', product: product }
+      } else {
+        return { message: 'err', product: 'Product not found' }
+      }
+    } else {
+      return { message: 'err', product: 'Product not found' }
+    }
   }
 }

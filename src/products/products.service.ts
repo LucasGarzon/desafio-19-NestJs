@@ -25,14 +25,13 @@ export class ProductsService {
 
   async findOne(id: string) {
     return this.productsModel.findById(id)
-    // return `This action returns a #${id} product`;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
     return `This action updates a #${id} product`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+    return this.productsModel.deleteOne({ _id: id })
   }
 }
