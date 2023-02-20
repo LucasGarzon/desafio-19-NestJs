@@ -19,12 +19,13 @@ export class ProductsService {
     return this.productsModel.create(createProductDto)
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll() {
+    return this.productsModel.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: string) {
+    return this.productsModel.findById(id)
+    // return `This action returns a #${id} product`;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {

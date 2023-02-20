@@ -16,13 +16,23 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  async findAll() {
+    const products = await this.productsService.findAll();
+    if (products) {
+      return { message: 'Products found', products: products }
+    } else {
+      return { message: 'err' , products: 'Products not found' }
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const product = await this.productsService.findOne(id);
+    if (product) {
+      return { message : 'Product found', product: product}
+    } else {
+      return { message: 'err', product: 'Product not found'}
+    }
   }
 
   @Patch(':id')
